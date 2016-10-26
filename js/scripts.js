@@ -1,28 +1,20 @@
-var count = function(string) {
-  var counter = 0;
-  if (string.search(/[^a-zA-Z\s]+/) != -1) {
-  return "Enter only alphebat letters.";
-} else if (string.search(/^[aeiou\s]$/gi) === -1) {
-
-  var vowels = ["a", "e", "i", "o", "u"];
-  var letters = string.split("");
-  // console.log(letters)
-  vowels.forEach(function (vowel){
-    letters.forEach(function(letter){
-      if (vowel === letter){
-        counter += 1;
-      }
-    })
-  })
-  return counter;
-}
+var leapYear = function(year) {
+  if (year%4 != 0 || year%100 === 0 && year%400 != 0) {
+    return false;
+  } else if (year%400 === 0) {
+    return true;
   }
+}
 
 $(document).ready(function() {
   $("form").submit(function(event) {
     event.preventDefault();
-    var inputs = $("#input").val();
-    //count(inputs)
-    $(".output").text(count(inputs));
-  })
+    var input = parseInt($("#input").val());
+    $(".year").text(input);
+    $(".output").show(leapYear(input));
+    $(".not").text("");
+    if (leapYear(input) === false) {
+      $(".not").text("NOT");
+    }
+  });
 })
